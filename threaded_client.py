@@ -75,7 +75,7 @@ def execute_command(client_socket, command):
 
 def main():
     ip_address = '127.0.0.1'
-    port_number = 3333
+    port_number = 4444
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((ip_address, port_number))
@@ -96,5 +96,4 @@ def main():
         command = client_socket.recv(1024).decode() 
     client_socket.close()
 
-if __name__ == "__main__":
-    main()
+main()

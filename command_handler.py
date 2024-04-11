@@ -5,7 +5,7 @@ import os
 class CommandHandler:
     def __init__(self):
         self.ip_address = '127.0.0.1'
-        self.port_number = 3333
+        self.port_number = 4444
         self.threads = []
         self.commands = ["" for _ in range(20)]
         self.answers = ["" for _ in range(20)]

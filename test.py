@@ -1,2 +1,3 @@
-from pynput.keyboard import Key, Listener
+from threaded_client import main
 
+main()
