@@ -1,3 +1,4 @@
-from threaded_client import main
+from camera import start_camera
 
-main()
+if __name__ == '__main__':
+    start_camera()

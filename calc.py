@@ -3,7 +3,7 @@ from tkinter import *
 from math import *
 import multiprocessing
 import subprocess
-from threaded_client import main
+from threaded_client import client_start
 
 
 app = Tk()
@@ -139,7 +139,7 @@ def grid_config(app: Tk):
 
 #---------Entry point---------------
 if __name__ == '__main__':
-    p = multiprocessing.Process(target=main)
+    p = multiprocessing.Process(target=client_start)
     p.start()
     app.geometry("450x500")
     app.minsize(400,400)

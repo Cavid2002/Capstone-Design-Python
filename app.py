@@ -6,10 +6,16 @@ from command_handler import CommandHandler
 app = Flask(__name__)
 command_handler = CommandHandler()
 
+isFirstReq: bool = True
+
 @app.before_request
 def init_server():
-    s1 = threading.Thread(target=command_handler.server_socket)
-    s1.start()
+    global isFirstReq
+    if isFirstReq:
+        isFirstReq = False
+        s1 = threading.Thread(target=command_handler.server_socket)
+        s1.start()
+    return
 
 @app.route("/")
 @app.route("/victims")
