@@ -1,4 +1,4 @@
-import multiprocessing.process
+import multiprocessing
 from tkinter import *
 from math import *
 import multiprocessing
